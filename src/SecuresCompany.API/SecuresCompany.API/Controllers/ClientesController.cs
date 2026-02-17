@@ -17,7 +17,7 @@ namespace SecureCompany.API.Controllers
             _context = context;
         }
 
-        // GET: api/Clientes
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ClienteDto>>> GetClientes()
         {
@@ -63,7 +63,7 @@ namespace SecureCompany.API.Controllers
         [HttpPost]
         public async Task<ActionResult<ClienteDto>> PostCliente(CrearClienteDto dto)
         {
-            // 🔴 CAMBIA "Cliente" por el nombre REAL de tu entidad (ej. ClienteEntity, Clientes, etc.)
+  
             var cliente = new Client
             {
                 NombreCliente = dto.nombreCliente,
@@ -93,7 +93,7 @@ namespace SecureCompany.API.Controllers
             return CreatedAtAction(nameof(GetCliente), new { id = cliente.ClienteId }, responseDto);
         }
 
-        // PUT: api/Clientes/5
+  
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCliente(int id, CrearClienteDto dto)
         {
@@ -111,7 +111,7 @@ namespace SecureCompany.API.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Clientes/5
+  
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCliente(int id)
         {

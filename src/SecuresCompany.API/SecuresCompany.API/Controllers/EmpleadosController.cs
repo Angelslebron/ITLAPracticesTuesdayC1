@@ -17,27 +17,27 @@ namespace SecuresCompany.API.Controllers
             _context = context;
         }
 
-        // GET: api/Empleados
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EmpleadoDto>>> GetEmpleados()
         {
             var empleados = await _context.Empleados
                 .Select(e => new EmpleadoDto
                 {
-                    empleadoID = e.EmpleadoId,               // ← Corregido
+                    empleadoID = e.EmpleadoId,               
                     idEmpleado = e.IdEmpleado,
                     nombre = e.Nombre,
                     departamento = e.Departamento,
                     puesto = e.Puesto,
                     salarioBase = e.SalarioBase,
-                    fechaIngreso = e.FechaIngreso            // ← minúscula, DateOnly
+                    fechaIngreso = e.FechaIngreso            
                 })
                 .ToListAsync();
 
             return Ok(empleados);
         }
 
-        // GET: api/Empleados/5
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<EmpleadoDto>> GetEmpleado(int id)
         {
@@ -57,7 +57,7 @@ namespace SecuresCompany.API.Controllers
             return Ok(dto);
         }
 
-        // POST: api/Empleados
+        
         [HttpPost]
         public async Task<ActionResult<EmpleadoDto>> PostEmpleado(CrearEmpleadoDto dto)
         {
@@ -68,7 +68,7 @@ namespace SecuresCompany.API.Controllers
                 Departamento = dto.departamento,
                 Puesto = dto.puesto,
                 SalarioBase = dto.salarioBase,
-                FechaIngreso = dto.fechaIngreso          // ← minúscula
+                FechaIngreso = dto.fechaIngreso          
             };
 
             _context.Empleados.Add(empleado);
@@ -88,7 +88,7 @@ namespace SecuresCompany.API.Controllers
             return CreatedAtAction(nameof(GetEmpleado), new { id = empleado.EmpleadoId }, responseDto);
         }
 
-        // PUT: api/Empleados/5
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEmpleado(int id, CrearEmpleadoDto dto)
         {
@@ -106,7 +106,7 @@ namespace SecuresCompany.API.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Empleados/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmpleado(int id)
         {
