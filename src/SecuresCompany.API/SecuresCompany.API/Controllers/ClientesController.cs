@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SecuresCompany.API.Data;
-using SecuresCompany.API.Data.Entities;
-using SecuresCompany.API.Models.Dtos;
+using SecuresCompany.Domain.Entities;
+using SecuresCompany.Domain.Models.Dtos;
+using SecuresCompany.Models.Domain.Dtos;
+using SecuresCompany.Persistence.Context;
 
 namespace SecureCompany.API.Controllers
 {
@@ -24,8 +25,8 @@ namespace SecureCompany.API.Controllers
             var clientes = await _context.Clients
                 .Select(c => new ClienteDto
                 {
-                    clienteID = c.ClienteId,
-                    nombreCliente = c.NombreCliente,
+                    clienteID = c.Id,
+                    nombreCliente = c.Nombre,
                     numeroPoliza = c.NumeroPoliza,
                     tipoSeguro = c.TipoSeguro,
                     tipoCliente = c.TipoCliente,
@@ -38,7 +39,7 @@ namespace SecureCompany.API.Controllers
             return Ok(clientes);
         }
 
-        // GET: api/Clientes/5
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<ClienteDto>> GetCliente(int id)
         {
@@ -47,8 +48,8 @@ namespace SecureCompany.API.Controllers
 
             var dto = new ClienteDto
             {
-                clienteID = cliente.ClienteId,
-                nombreCliente = cliente.NombreCliente,
+                clienteID = cliente.Id,
+                nombreCliente = cliente.Nombre,
                 numeroPoliza = cliente.NumeroPoliza,
                 tipoSeguro = cliente.TipoSeguro,
                 tipoCliente = cliente.TipoCliente,
@@ -59,20 +60,20 @@ namespace SecureCompany.API.Controllers
             return Ok(dto);
         }
 
-        // POST: api/Clientes
+        
         [HttpPost]
         public async Task<ActionResult<ClienteDto>> PostCliente(CrearClienteDto dto)
         {
   
             var cliente = new Client
             {
-                NombreCliente = dto.nombreCliente,
+                Nombre = dto.nombreCliente,
                 NumeroPoliza = dto.numeroPoliza,
                 TipoSeguro = dto.tipoSeguro,
                 TipoCliente = dto.tipoCliente,
                 Email = dto.email,
                 Telefono = dto.telefono,
-                fechaRegistro = DateTime.Now,
+                FechaIngreso = DateTime.Now,
                 SaldoPendiente = 0
             };
 
@@ -81,8 +82,8 @@ namespace SecureCompany.API.Controllers
 
             var responseDto = new ClienteDto
             {
-                clienteID = cliente.ClienteId,
-                nombreCliente = cliente.NombreCliente,
+                clienteID = cliente.Id,
+                nombreCliente = cliente.Nombre,
                 numeroPoliza = cliente.NumeroPoliza,
                 tipoSeguro = cliente.TipoSeguro,
                 tipoCliente = cliente.TipoCliente,
@@ -90,7 +91,7 @@ namespace SecureCompany.API.Controllers
                 email = cliente.Email,
                 telefono = cliente.Telefono
             };
-            return CreatedAtAction(nameof(GetCliente), new { id = cliente.ClienteId }, responseDto);
+            return CreatedAtAction(nameof(GetCliente), new { id = cliente.Id }, responseDto);
         }
 
   
@@ -100,7 +101,7 @@ namespace SecureCompany.API.Controllers
             var cliente = await _context.Clients.FindAsync(id);
             if (cliente == null) return NotFound();
 
-            cliente.NombreCliente = dto.nombreCliente;
+            cliente.Nombre = dto.nombreCliente;
             cliente.NumeroPoliza = dto.numeroPoliza;
             cliente.TipoSeguro = dto.tipoSeguro;
             cliente.TipoCliente = dto.tipoCliente;

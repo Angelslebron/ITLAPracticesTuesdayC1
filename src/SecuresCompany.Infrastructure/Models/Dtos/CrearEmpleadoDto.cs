@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SecuresCompany.API.Models.Dtos
+namespace SecuresCompany.Domain.Models.Dtos
 {
     public class CrearEmpleadoDto
     {
