@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SecuresCompany.Domain.Models.Dtos;
-using SecuresCompany.Persistence.Context;
+using SecuresCompany.API.Data;
+using SecuresCompany.API.Data.Entities;
+using SecuresCompany.API.Models.Dtos;
 
 namespace SecuresCompany.API.Controllers
 {
@@ -23,13 +24,13 @@ namespace SecuresCompany.API.Controllers
             var empleados = await _context.Empleados
                 .Select(e => new EmpleadoDto
                 {
-                    empleadoID = e.Id,               
+                    empleadoID = e.EmpleadoId,               
                     idEmpleado = e.IdEmpleado,
                     nombre = e.Nombre,
                     departamento = e.Departamento,
                     puesto = e.Puesto,
                     salarioBase = e.SalarioBase,
-                    fechaIngreso = e.fechaIngreso            
+                    fechaIngreso = e.FechaIngreso            
                 })
                 .ToListAsync();
 
@@ -45,13 +46,13 @@ namespace SecuresCompany.API.Controllers
 
             var dto = new EmpleadoDto
             {
-                empleadoID = empleado.Id,
+                empleadoId = empleado.EmpleadoId,
                 idEmpleado = empleado.IdEmpleado,
                 nombre = empleado.Nombre,
                 departamento = empleado.Departamento,
                 puesto = empleado.Puesto,
                 salarioBase = empleado.SalarioBase,
-                fechaIngreso = empleado.fechaIngreso
+                fechaIngreso = empleado.FechaIngreso
             };
             return Ok(dto);
         }
@@ -60,14 +61,14 @@ namespace SecuresCompany.API.Controllers
         [HttpPost]
         public async Task<ActionResult<EmpleadoDto>> PostEmpleado(CrearEmpleadoDto dto)
         {
-            var empleado = new Domain.Entities.Empleado
+            var empleado = new Empleado
             {
                 IdEmpleado = dto.idEmpleado,
                 Nombre = dto.nombre,
                 Departamento = dto.departamento,
                 Puesto = dto.puesto,
                 SalarioBase = dto.salarioBase,
-                fechaIngreso = dto.fechaIngreso          
+                FechaIngreso = dto.fechaIngreso          
             };
 
             _context.Empleados.Add(empleado);
@@ -75,16 +76,16 @@ namespace SecuresCompany.API.Controllers
 
             var responseDto = new EmpleadoDto
             {
-                empleadoID = empleado.Id,
+                empleadoID = empleado.EmpleadoId,
                 idEmpleado = empleado.IdEmpleado,
                 nombre = empleado.Nombre,
                 departamento = empleado.Departamento,
                 puesto = empleado.Puesto,
                 salarioBase = empleado.SalarioBase,
-                fechaIngreso = empleado.fechaIngreso
+                fechaIngreso = empleado.FechaIngreso
             }; 
 
-            return CreatedAtAction(nameof(GetEmpleado), new { id = empleado.Id }, responseDto);
+            return CreatedAtAction(nameof(GetEmpleado), new { id = empleado.EmpleadoId }, responseDto);
         }
 
         
@@ -99,7 +100,7 @@ namespace SecuresCompany.API.Controllers
             empleado.Departamento = dto.departamento;
             empleado.Puesto = dto.puesto;
             empleado.SalarioBase = dto.salarioBase;
-            empleado.fechaIngreso = dto.fechaIngreso;
+            empleado.FechaIngreso = dto.fechaIngreso;
 
             await _context.SaveChangesAsync();
             return NoContent();

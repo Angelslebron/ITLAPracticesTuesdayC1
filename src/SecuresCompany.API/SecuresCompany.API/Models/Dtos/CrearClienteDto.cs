@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SecuresCompany.Domain.Models.Dtos
+namespace SecuresCompany.API.Models.Dtos
 {
     public class CrearClienteDto
     {

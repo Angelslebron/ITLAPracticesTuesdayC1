@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using SecuresCompany.Domain.Entities;
-using SecuresCompany.Domain.Core;
+using SecuresCompany.API.Data.Entities;
 
-
-namespace SecuresCompany.Persistence.Context;
+namespace SecuresCompany.API.Data;
 
 public partial class SecureCompanyContext : DbContext
 {
     public SecureCompanyContext()
     {
     }
+
     public SecureCompanyContext(DbContextOptions<SecureCompanyContext> options)
         : base(options)
     {
@@ -26,9 +25,10 @@ public partial class SecureCompanyContext : DbContext
     public virtual DbSet<Empleado> Empleados { get; set; }
 
     public virtual DbSet<LenguajesProgramacionEmpleado> LenguajesProgramacionEmpleados { get; set; }
-   
+    public object Client { get; internal set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=localhost\\MSSQLSERVER01;Database=SecureCompany;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -50,12 +50,9 @@ public partial class SecureCompanyContext : DbContext
                 .HasConstraintName("FK_CertificacionesEmpleado_Empleado");
         });
 
-        modelBuilder.Entity<Client>(static entity =>
+        modelBuilder.Entity<Client>(entity =>
         {
-            entity.HasKey(e => e.Id);
-
-            entity.Property(e => e.Id)
-            .HasColumnName("clienteID");
+            entity.HasKey(e => e.ClienteId);
 
             entity.HasIndex(e => e.EmpleadoAsignadoId, "IX_Clients_empleadoAsignado");
 
@@ -67,9 +64,10 @@ public partial class SecureCompanyContext : DbContext
 
             entity.HasIndex(e => e.NumeroPoliza, "UQ_Clients_numeroPoliza").IsUnique();
 
-            entity.Property(e => e.Id).HasColumnName("clienteId");
+            entity.Property(e => e.ClienteId).HasColumnName("clienteId");
             entity.Property(e => e.AprobacionPendiente).HasColumnName("aprobacionPendiente");
-            entity.Property(e => e.DescuentoFidelidad).HasColumnType("decimal(5, 2)")
+            entity.Property(e => e.DescuentoFidelidad)
+                .HasColumnType("decimal(5, 2)")
                 .HasColumnName("descuentoFidelidad");
             entity.Property(e => e.DiasMora).HasColumnName("diasMora");
             entity.Property(e => e.Email)
@@ -90,7 +88,7 @@ public partial class SecureCompanyContext : DbContext
             entity.Property(e => e.MotivoMora)
                 .HasMaxLength(255)
                 .HasColumnName("motivoMora");
-            entity.Property(e => e.Nombre)
+            entity.Property(e => e.NombreCliente)
                 .HasMaxLength(100)
                 .HasColumnName("nombreCliente");
             entity.Property(e => e.NumeroPoliza)
@@ -149,7 +147,7 @@ public partial class SecureCompanyContext : DbContext
 
             entity.HasIndex(e => e.IdEmpleado, "UQ_Empleados_IdEmpleado").IsUnique();
 
-            entity.Property(e => e.IdEmpleado).HasColumnName("empleadoID");
+            entity.Property(e => e.EmpleadoId).HasColumnName("empleadoID");
             entity.Property(e => e.AreaEspecializacion)
                 .HasMaxLength(50)
                 .HasColumnName("areaEspecializacion");

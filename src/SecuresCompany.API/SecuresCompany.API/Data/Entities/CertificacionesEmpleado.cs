@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SecuresCompany.Domain.Entities;
+namespace SecuresCompany.API.Data.Entities;
 
 public partial class CertificacionesEmpleado
 {

@@ -1,9 +1,6 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using SecuresCompany.Domain.Interfaces;
-using SecuresCompany.Infrastructure.Repositories;
-using SecuresCompany.Domain.Models.Dtos;
-using SecuresCompany.Persistence.Context;
-
+using SecuresCompany.API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,13 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<SecureCompanyContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
-builder.Services.AddScoped<IEmpleadoRepository, EmpleadoRepository>();
-
 var app = builder.Build();
-
-
 
 
 if (app.Environment.IsDevelopment())
