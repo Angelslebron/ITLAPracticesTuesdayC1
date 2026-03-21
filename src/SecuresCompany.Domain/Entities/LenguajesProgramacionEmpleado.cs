@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SecuresCompany.API.Data.Entities;
+namespace SecuresCompany.Domain.Entities;
 
 public partial class LenguajesProgramacionEmpleado
 {
@@ -15,3 +15,4 @@ public partial class LenguajesProgramacionEmpleado
 
     public virtual Empleado Empleado { get; set; } = null!;
 }
+
