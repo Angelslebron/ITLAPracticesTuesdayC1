@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SecuresCompany.Domain.Entities;
-using SecuresCompany.Domain.Models.Dtos;
-using SecuresCompany.Models.Domain.Dtos;
+using SecuresCompany.Application.Dtos;
 using SecuresCompany.Persistence.Context;
 
 namespace SecureCompany.API.Controllers

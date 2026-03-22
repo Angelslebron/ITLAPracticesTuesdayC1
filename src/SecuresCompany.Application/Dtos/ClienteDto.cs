@@ -1,4 +1,4 @@
-﻿namespace SecuresCompany.Models.Domain.Dtos;
+﻿namespace SecuresCompany.Application.Dtos;
 
 public class ClienteDto
 {

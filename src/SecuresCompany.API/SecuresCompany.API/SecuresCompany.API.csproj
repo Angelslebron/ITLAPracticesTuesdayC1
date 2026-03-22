@@ -28,6 +28,7 @@
     <ProjectReference Include="..\..\SecuresCompany.Domain\SecuresCompany.Domain.csproj" />
     <ProjectReference Include="..\..\SecuresCompany.Infrastructure\SecuresCompany.Infrastructure.csproj" />
     <ProjectReference Include="..\..\SecuresCompany.Persistence\SecuresCompany.Persistence.csproj" />
+    <ProjectReference Include="..\..\SecuresCompany.Application\SecuresCompany.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SecuresCompany.Domain.Interfaces;
 using SecuresCompany.Infrastructure.Repositories;
-using SecuresCompany.Domain.Models.Dtos;
+using SecuresCompany.Application.Contract;
 using SecuresCompany.Persistence.Context;
 
 

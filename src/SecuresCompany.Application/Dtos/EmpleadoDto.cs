@@ -1,4 +1,4 @@
-﻿namespace SecuresCompany.Domain.Models.Dtos
+﻿namespace SecuresCompany.Application.Dtos
 {
     public class EmpleadoDto
     {
