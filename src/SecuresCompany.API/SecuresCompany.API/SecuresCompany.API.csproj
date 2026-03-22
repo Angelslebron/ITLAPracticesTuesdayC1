@@ -25,7 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\Entities\" />
+    <ProjectReference Include="..\..\SecuresCompany.Domain\SecuresCompany.Domain.csproj" />
+    <ProjectReference Include="..\..\SecuresCompany.Infrastructure\SecuresCompany.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
